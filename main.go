@@ -19,7 +19,6 @@ type UserData struct {
 }
 
 func main() {
-
 	fmt.Println("######################################")
 	greetUsers()
 	fmt.Println("######################################")
