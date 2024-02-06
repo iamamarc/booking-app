@@ -3,14 +3,20 @@ package main
 import (
 	"booking-app/helper"
 	"fmt"
-	"strconv"
 )
 
 const conferenceTickets = 50
 
 var conferenceName = "Golang Programming Conference"
 var remainingTickets uint = 50
-var bookings = make([]map[string]string, 0) // list of dictionaries or maps
+var bookings = make([]UserData, 0) // list of dictionaries or maps
+
+type UserData struct {
+	firstName       string
+	lastName        string
+	email           string
+	numberOfTickets uint
+}
 
 func main() {
 
@@ -60,7 +66,7 @@ func getFirstNames() []string {
 	var firstNames []string
 
 	for _, booking := range bookings {
-		firstNames = append(firstNames, booking["firstName"])
+		firstNames = append(firstNames, booking.firstName)
 	}
 	return firstNames
 }
@@ -93,12 +99,12 @@ func getUserInputs() (string, string, string, uint) {
 func bookTicket(userTickets uint, firstName string, lastName string, email string) {
 	remainingTickets = remainingTickets - userTickets
 	// create a map for the user
-	var userData = make(map[string]string)
-
-	userData["firstName"] = firstName
-	userData["lastName"] = lastName
-	userData["email"] = email
-	userData["numberOfTickets"] = strconv.FormatUint(uint64(userTickets), 10)
+	var userData = UserData{
+		firstName:       firstName,
+		lastName:        lastName,
+		email:           email,
+		numberOfTickets: userTickets,
+	}
 
 	bookings = append(bookings, userData) // adding a value to a slice
 
